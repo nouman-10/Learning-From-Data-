@@ -24,6 +24,13 @@ def create_arg_parser():
         help="Input directory to read json files from (default ./data/COP.filt3.sub/)",
     )
     parser.add_argument(
+        "-t",
+        "--test_file",
+        type=str,
+        default="",
+        help="Path for the test json file (default None)",
+    )
+    parser.add_argument(
         "-f",
         "--to_filter",
         action="store_true",
@@ -46,6 +53,13 @@ def read_articles(folder_name):
             else:
                 train_articles.extend(json_data["articles"])
     return train_articles, dev_articles, test_articles
+
+
+def read_single_file(file_path):
+    """Read articles from a single json file"""
+    with open(os.path.join(file_path), "r") as f:
+        json_data = json.loads(f.read())
+        return json_data['articles']
 
 
 def create_words_to_filter(labels):
@@ -89,54 +103,51 @@ def filter_text(text, filter_words, to_filter):
     return filtered_text
 
 
-def calculate_prob_of_subjects(articles):
-    label_article = []
-    for i, article in enumerate(articles):
-        label_article.append({})
-        subjects = article['all_subjects']
-        if subjects:
-            total_percentage = 0
-            for subject in subjects:
-                try:
-                    previous_percentage = int(subject['percentage'])
-                except:
-                    pass
-                total_percentage += previous_percentage
-            
-            for subject in subjects:
-                try:
-                    percentage = int(subject['percentage'])
-                except:
-                    pass
+def calculate_prob_of_subjects(subjects):
+    label_article = {}
+    total_percentage = 0
+    for subject in subjects:
+        try:
+            previous_percentage = int(subject['percentage'])
+            total_percentage += previous_percentage
+        except:
+            pass
+        
+    
+    for subject in subjects:
+        try:
+            percentage = int(subject['percentage'])
+            percent_of_total = round(percentage / total_percentage, 4)
+            label_article.update({subject['name']: percent_of_total})
+        except:
+            pass
 
-                percent_of_total = round(percentage / total_percentage, 4)
-
-                label_article[i].update({subject['name']: percent_of_total})
+        
 
 
-    return [[label[subject] if subject in label else 0 for subject in subject_counter.keys()] for label in label_article]
+    return [label_article[subject] if subject in label_article else 0 for subject in subject_counter.keys()]
     
 
 
-def extract_features_labels(articles, labels, to_filter):
+def extract_features_labels(articles, labels_, to_filter):
     """Extract features and labels from the articles"""
     features, labels = [], []
     for article in articles:
         subjects = article["classification"]["subject"]
-        if subjects and subjects[0]["name"] in labels:
-
+        if subjects and subjects[0]["name"].lower() in labels_:
+            classification = article['classification']
             newspaper = article["newspaper"]
             organization = (
-                article["classification"]["organization"][0]["name"]
-                if article["classification"]["organization"]
+                classification["organization"][0]["name"]
+                if classification["organization"]
                 else "none"
             )
             industry = (
-                article["classification"]["industry"][0]["name"] if article["classification"]["industry"] else "none"
+                classification["industry"][0]["name"] if classification["industry"] else "none"
             )
             geographic = (
-                article["classification"]["geographic"][0]["name"]
-                if article["classification"]["geographic"]
+                classification["geographic"][0]["name"]
+                if classification["geographic"]
                 else "none"
             )
             features.append(
@@ -145,19 +156,15 @@ def extract_features_labels(articles, labels, to_filter):
                     "headline": filter_text(article["headline"], filter_words, to_filter),
                     "newspaper": newspaper,
                     "organization": organization,
-                    "all_subjects": [
-                        subject
-                        for subject in article["classification"]["subject"]
-                        if subject["name"] in labels_selected
-                    ],
+                    "all_subjects": calculate_prob_of_subjects([subject
+                        for subject in subjects
+                        if subject["name"] in labels_selected]),
                     "industry": industry,
                     "geographic": geographic,
                 }
             )
 
-            labels.append(article["classification"]["subject"][0]["name"])
-
-    features['all_subjects'] = calculate_prob_of_subjects(features)
+            labels.append(subjects[0]["name"].lower())
 
     return features, labels
 
@@ -170,9 +177,7 @@ def store_data(features, labels, filename):
 
 if __name__ == "__main__":
     args = create_arg_parser()
-
     train_articles, dev_articles, test_articles = read_articles(args.input_dir)
-
     labels = [
         article["classification"]["subject"][0]["name"].lower()
         for article in chain(train_articles, dev_articles, test_articles)
@@ -180,18 +185,22 @@ if __name__ == "__main__":
     ]
     threshold = 50
     labels_selected = [article for article, count in Counter(labels).most_common() if count > threshold]
-    filter_words = create_words_to_filter(labels_selected)
 
+    filter_words = create_words_to_filter(labels_selected)
     subject_counter = Counter()
     for article in chain(train_articles, dev_articles, test_articles):
-        subjects = article['all_subjects']
+        subjects = article['classification']['subject']
         if subjects:
             for subject in subjects:
                 subject_counter[subject['name']] += 1
 
+    if args.test_file:
+        test_articles = read_single_file(args.test_file)
+
     X_train, Y_train = extract_features_labels(train_articles, labels_selected, args.to_filter)
     X_dev, Y_dev = extract_features_labels(dev_articles, labels_selected, args.to_filter)
     X_test, Y_test = extract_features_labels(test_articles, labels_selected, args.to_filter)
+
 
     store_data(X_train, Y_train, "./data/train.json")
     store_data(X_dev, Y_dev, "./data/dev.json")
