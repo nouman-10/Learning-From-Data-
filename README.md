@@ -25,7 +25,7 @@ We tried various machine learning algorithms such as Naive Bayes, Support Vector
 
 - `predict.py` predicts on a test file using the saved model. You can optionally provide the path for the test file as well as the model.
 
-- `pipeline.sh` automates all the above by first installing all the required libraries. Then taking a test file and preprocessing it, then using the saved baseline model to predict on it. You can run it as `pipeline.sh ./data/COP24.filt3.sub.json`
+- `pipeline.sh` automates all the above by first installing all the required libraries. Then taking a test file and preprocessing it, then using the saved baseline model to predict on it. You can run it as `pipeline.sh COP24.filt3.sub.json` where `COP24.filt3.sub.json` is inside the `data` folder
 
 
 
