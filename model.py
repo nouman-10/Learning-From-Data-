@@ -4,6 +4,7 @@ import os
 from collections import Counter
 from itertools import product
 from operator import mul
+import pickle
 
 import nltk
 from nltk import pos_tag, word_tokenize
@@ -32,10 +33,12 @@ from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              precision_score, recall_score)
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import FunctionTransformer, LabelBinarizer
-from sklearn.svm import SVC
+from sklearn.svm import SVC, LinearSVC
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils import shuffle
 from sklearn.utils.class_weight import compute_class_weight
+from transformers import TFAutoModelForSequenceClassification
+from transformers import AutoTokenizer
 
 # Make reproducible as much as possible
 np.random.seed(1234)
@@ -80,6 +83,7 @@ baseline_model_types = {
     "knn": KNeighborsClassifier,
     "decision_tree": DecisionTreeClassifier,
     "random_forest": RandomForestClassifier,
+    "linear_svm": LinearSVC
 }
 
 vectorizer_types = {"count": CountVectorizer, "tfidf": TfidfVectorizer}
@@ -102,6 +106,13 @@ def create_arg_parser():
         default="./data/",
         type=str,
         help="Input directory to read json files from (default ./data/)",
+    )
+    parser.add_argument(
+        "-o",
+        "--output_path",
+        default="./output/",
+        type=str,
+        help="Output directory to save the results to (default ./output/)",
     )
     args = parser.parse_args()
     return args
@@ -168,11 +179,11 @@ def upsample(X_train, Y_train, size=100, downsample=False):
 
     return new_X_train, new_Y_train
 
-
 class BaselineModel:
-    def __init__(self, data_path, model_type, model_params, vectorizer_type, vectorizer_params, extra_feature=None):
+    def __init__(self, data_path, model_type, model_params, vectorizer_type, vectorizer_params, extra_feature=None, upsample=False, downsample=False):
         self.data_path = data_path
-        self.model = baseline_model_types.get(model_type)
+        self.model_type = model_type
+        self.model = baseline_model_types.get(self.model_type)
         self.vectorizer = vectorizer_types.get(vectorizer_type)
         if self.vectorizer is None or self.model is None:
             raise Exception("Invalid vectorizer or model type")
@@ -192,11 +203,17 @@ class BaselineModel:
         self.recall = None
         self.f1 = None
         self.confusion_matrix = None
+        self.upsample = upsample
+        self.downsample = downsample
 
-    def read_data(self):
-        train_data = read_file(os.path.join(self.data_path, "train.json"))
-        dev_data = read_file(os.path.join(self.data_path, "dev.json"))
+    def read_data(self, only_test=False):
+        """Read in data from json files"""
         test_data = read_file(os.path.join(self.data_path, "test.json"))
+        self.X_test, self.Y_test = [article["body"] for article in test_data["features"]], test_data["labels"]
+        if only_test:
+            return
+        train_data = read_file(os.path.join(self.data_path, "train.json"))
+        dev_data = read_file(os.path.join(self.data_path, "dev.json"))    
 
         if self.extra_feature:
             self.X_train, self.Y_train = train_data["features"], train_data["labels"]
@@ -205,16 +222,31 @@ class BaselineModel:
         else:
             self.X_train, self.Y_train = [article["body"] for article in train_data["features"]], train_data["labels"]
             self.X_dev, self.Y_dev = [article["body"] for article in dev_data["features"]], dev_data["labels"]
-            self.X_test, self.Y_test = [article["body"] for article in test_data["features"]], test_data["labels"]
-            if upsample:
-                self.X_train, self.Y_train = upsample(self.X_train, self.Y_train)
+            
+            if self.upsample:
+                self.X_train, self.Y_train = upsample(self.X_train, self.Y_train, downsample=self.downsample)
 
         self.labels = list(set(self.Y_train))
+
+    def compute_class_weight_baseline(self):
+        class_weights = compute_class_weight('balanced', classes=self.labels, y=self.Y_train)
+        d_class_weights = {}
+        for class_, weight_ in zip(self.labels, class_weights):
+            d_class_weights[class_] = weight_
+
+        return d_class_weights
+
+    def compute_class_weight_encoded(self, Y_train_bin):
+        y_integers = np.argmax(Y_train_bin, axis=1)
+        class_weights = compute_class_weight('balanced', np.unique(y_integers), y_integers)
+        return dict(enumerate(class_weights))
 
     def train_baseline(self):
         if self.extra_feature:
             self.train_with_extra_feature()
         else:
+            if self.model_type == "svm":
+                self.model_params.update({"class_weight": self.compute_class_weight_baseline()})
             self.pipeline = Pipeline(
                 [("vect", self.vectorizer(**self.vectorizer_params)), ("clf", self.model(**self.model_params))]
             )
@@ -420,10 +452,6 @@ class BaselineModel:
             Y_train_bin = encoder.fit_transform(self.Y_train)  # Use encoder.classes_ to find mapping back
             Y_dev_bin = encoder.transform(self.Y_dev)
 
-            y_integers = np.argmax(self.Y_train, axis=1)
-            class_weights = compute_class_weight("balanced", np.unique(y_integers), y_integers)
-            d_class_weights = dict(enumerate(class_weights))
-
             model = self.build_and_compile_model(combination, num_tokens, num_labels)
 
             callbacks = self.get_callbacks(combination["epochs"])
@@ -435,12 +463,50 @@ class BaselineModel:
                 epochs=combination["epochs"],
                 validation_data=(X_dev_vect, Y_dev_bin),
                 callbacks=callbacks,
-                class_weight=d_class_weights,
+                class_weight=self.compute_class_weight_encoded(Y_train_bin),
                 verbose=0,
             )
 
             print("Result for: ", combination)
             test_set_predict(model, X_dev_vect, Y_dev_bin)
+
+    def train_bert_models(self):    
+        encoder = LabelBinarizer()
+        Y_train_bin = encoder.fit_transform(self.Y_train)  # Use encoder.classes_ to find mapping back
+        Y_dev_bin = encoder.transform(self.Y_dev)
+
+        lms = ["bert-base-cased", "bert-large-cased", "roberta", "google/mobilebert-uncased"]
+        for lm in lms:
+            tokenizer = AutoTokenizer.from_pretrained(lm)
+            model = TFAutoModelForSequenceClassification.from_pretrained(lm, num_labels=147)
+            tokens_train = tokenizer(self.X_train, padding=True, max_length=100, truncation=True, return_tensors="np").data
+            tokens_dev = tokenizer(self.X_dev, padding=True, max_length=100, truncation=True, return_tensors="np").data
+
+            loss_function = tf.keras.losses.CategoricalCrossentropy(from_logits=True)
+            optim = tf.keras.optimizers.Adam(learning_rate=5e-5)
+
+            model.compile(loss=loss_function, optimizer=optim, metrics=['accuracy'])
+
+            callback = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=20)
+            reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(
+                monitor='val_loss', factor=0.01, patience=5, verbose=0,
+                mode='auto', min_delta=0.001, cooldown=0, min_lr=5e-20
+            )
+
+
+            model.fit(
+                tokens_train, 
+                Y_train_bin, 
+                verbose=1, 
+                class_weight=self.compute_class_weight_encoded(), 
+                epochs=50, 
+                batch_size=8, 
+                callbacks=[callback, reduce_lr], 
+                validation_data=(tokens_dev, Y_dev_bin)
+            )
+            print("Result for: ", lm)
+            test_set_predict(model, tokens_dev, Y_dev_bin)
+
 
     def print_results(self):
         print(f"Accuracy: {self.accuracy:.3f}")
@@ -458,6 +524,7 @@ class BaselineModel:
             f.write("Confusion Matrix: \n")
             f.write(str(self.confusion_matrix))
 
+    
 
 if __name__ == "__main__":
     args = create_arg_parser()
@@ -465,8 +532,8 @@ if __name__ == "__main__":
     # Best Model
     model = BaselineModel(
         data_path=args.data_dir,
-        model_type="svm",
-        model_params={"kernel": "linear"},
+        model_type="linear_svm",
+        model_params={},
         vectorizer_type="tfidf",
         vectorizer_params={"max_df": 0.95, "max_features": 50000, "ngram_range": (1, 2)},
         extra_feature=None,
@@ -475,4 +542,4 @@ if __name__ == "__main__":
     model.train_baseline()
     model.evaluate()
     model.print_results()
-    model.save_results("best_baseline_results.txt")
+    model.save_results(os.path.join(args.output_path, "best_baseline_results.txt"))
