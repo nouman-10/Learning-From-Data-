@@ -1,0 +1,91 @@
+absl-py==0.15.0
+astunparse==1.6.3
+backports.csv==1.0.7
+beautifulsoup4==4.10.0
+boto3 @ file:///tmp/build/80754af9/boto3_1629142476879/work
+botocore @ file:///tmp/build/80754af9/botocore_1633531073272/work
+brotlipy==0.7.0
+cached-property==1.5.2
+cachetools==4.2.4
+certifi==2021.10.8
+cffi==1.15.0
+chardet==4.0.0
+charset-normalizer==2.0.7
+cheroot==8.5.2
+CherryPy==18.6.1
+click==8.0.3
+cryptography @ file:///tmp/build/80754af9/cryptography_1635354891583/work
+feedparser==6.0.8
+flatbuffers==2.0
+future==0.18.2
+gast==0.4.0
+google-auth==2.3.3
+google-auth-oauthlib==0.4.6
+google-pasta==0.2.0
+grpcio==1.41.1
+h5py==3.5.0
+idna==3.3
+importlib-metadata==4.8.1
+importlib-resources==5.4.0
+jaraco.classes==3.2.1
+jaraco.collections==3.4.0
+jaraco.functools==3.4.0
+jaraco.text==3.6.0
+jmespath @ file:///Users/ktietz/demo/mc3/conda-bld/jmespath_1630583964805/work
+joblib @ file:///tmp/build/80754af9/joblib_1635411271373/work
+keras==2.7.0
+Keras-Preprocessing==1.1.2
+libclang==12.0.0
+lxml==4.6.4
+Markdown==3.3.4
+mkl-fft==1.3.1
+mkl-random @ file:///tmp/build/80754af9/mkl_random_1626179032232/work
+mkl-service==2.4.0
+more-itertools==8.10.0
+mysqlclient==2.0.3
+nltk==3.6.5
+numpy==1.21.4
+oauthlib==3.1.1
+opt-einsum==3.3.0
+Pattern==3.6
+pdfminer.six==20211012
+portend==3.0.0
+protobuf==3.19.1
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pycparser==2.21
+pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1635333100036/work
+PySocks @ file:///tmp/build/80754af9/pysocks_1594394576006/work
+python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
+python-docx==0.8.11
+pytz==2021.3
+regex==2021.11.2
+requests @ file:///tmp/build/80754af9/requests_1629994808627/work
+requests-oauthlib==1.3.0
+rsa==4.7.2
+s3transfer @ file:///tmp/build/80754af9/s3transfer_1626435152308/work
+sacremoses @ file:///tmp/build/80754af9/sacremoses_1633107328213/work
+scikit-learn==1.0.1
+scipy==1.7.2
+sgmllib3k==1.0.0
+six @ file:///tmp/build/80754af9/six_1623709665295/work
+sklearn==0.0
+soupsieve==2.3
+tempora==4.1.2
+tensorboard==2.7.0
+tensorboard-data-server==0.6.1
+tensorboard-plugin-wit==1.8.0
+tensorflow==2.7.0
+tensorflow-estimator==2.7.0
+tensorflow-gpu==2.7.0
+tensorflow-io-gcs-filesystem==0.21.0
+termcolor==1.1.0
+threadpoolctl==3.0.0
+tqdm @ file:///tmp/build/80754af9/tqdm_1635330843403/work
+transformers @ file:///tmp/build/80754af9/transformers_1633098115425/work
+typing-extensions==3.10.0.2
+urllib3==1.26.7
+Werkzeug==2.0.2
+wrapt==1.13.3
+zc.lockfile==2.0
+zipp==3.6.0
