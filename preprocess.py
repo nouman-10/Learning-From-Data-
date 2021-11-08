@@ -4,6 +4,8 @@ import os
 import re
 from collections import Counter
 
+import numpy as np
+
 import nltk
 
 nltk.download("stopwords")
@@ -102,6 +104,32 @@ def filter_text(text, filter_words, to_filter):
 
     return filtered_text
 
+def label_leakage_analysis(model):
+    classes = list(model['clf'].classes_)
+    vocabulary = dict(sorted(model['vect'].vocabulary_.items(), key=lambda item: item[1]))
+    coef = model['clf'].coef_
+
+    def get_key(val):
+        for key, value in vocabulary.items():
+            if val == value:
+                return key
+    
+        return "key doesn't exist"
+
+    i = 0
+    for class_ in ['GREENHOUSE GASES', 'IMMIGRATION', 'THANKSGIVING', 'GARDENING', 'FISHES']:
+        class_index = classes.index(class_)
+
+        highest_coef = np.argmax(coef[class_index, :])
+
+        vocab_key = get_key(highest_coef)
+
+        if vocab_key in class_index:
+            print(class_, vocab_key, np.max(coef[class_index, :]))
+        i += 1
+
+    print("Total number of classes having some kind of label leakage: ", i)
+
 
 def calculate_prob_of_subjects(subjects):
     label_article = {}
@@ -122,9 +150,7 @@ def calculate_prob_of_subjects(subjects):
         except:
             pass
 
-        
-
-
+    
     return [label_article[subject] if subject in label_article else 0 for subject in subject_counter.keys()]
     
 
