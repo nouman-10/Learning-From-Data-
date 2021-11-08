@@ -47,9 +47,9 @@ def read_articles(folder_name):
     return train_articles, dev_articles, test_articles
 
 
-def read_single_file(dir, file_path):
+def read_single_file(file_path):
     """Read articles from a single json file"""
-    with open(os.path.join(dir, file_path), "r") as f:
+    with open(os.path.join('data/', file_path), "r") as f:
         json_data = json.loads(f.read())
         return json_data["articles"]
 
@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
     threshold = 50
     if args.test_file:
-        test_articles = read_single_file(args.input_dir, args.test_file)
+        test_articles = read_single_file(args.test_file)
         with open('./data/labels.txt', "r") as f:
             labels_selected = f.read().split("\n")
 
