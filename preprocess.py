@@ -47,9 +47,9 @@ def read_articles(folder_name):
     return train_articles, dev_articles, test_articles
 
 
-def read_single_file(file_path):
+def read_single_file(dir, file_path):
     """Read articles from a single json file"""
-    with open(os.path.join(file_path), "r") as f:
+    with open(os.path.join(dir, file_path), "r") as f:
         json_data = json.loads(f.read())
         return json_data["articles"]
 
@@ -208,36 +208,58 @@ def store_data(features, labels, filename):
 
 
 if __name__ == "__main__":
+    
     args = create_arg_parser()
-    train_articles, dev_articles, test_articles = read_articles(args.input_dir)
-
-    labels = [
-        article["classification"]["subject"][0]["name"].lower()
-        for article in chain(train_articles, dev_articles, test_articles)
-        if article["classification"]["subject"]
-    ]
 
     threshold = 50
-    labels_selected = [article for article, count in Counter(labels).most_common() if count > threshold]
-
-    filter_words = create_words_to_filter(labels_selected)
-
-    subject_counter = Counter()
-    for article in chain(train_articles, dev_articles, test_articles):
-        subjects = article["classification"]["subject"]
-        if subjects:
-            for subject in subjects:
-                subject_counter[subject["name"]] += 1
-
     if args.test_file:
-        test_articles = read_single_file(args.test_file)
+        test_articles = read_single_file(args.input_dir, args.test_file)
+        with open('./data/labels.txt', "r") as f:
+            labels_selected = f.read().split("\n")
 
-    X_test, Y_test = extract_features_labels(test_articles, labels_selected, args.to_filter)
-    store_data(X_test, Y_test, "./data/test.json")
+        filter_words = create_words_to_filter(labels_selected)
 
-    if not (args.test_file):
+        subject_counter = Counter()
+        for article in  test_articles:
+            subjects = article["classification"]["subject"]
+            if subjects:
+                for subject in subjects:
+                    subject_counter[subject["name"]] += 1
+
+        X_test, Y_test = extract_features_labels(test_articles, labels_selected, args.to_filter)
+        store_data(X_test, Y_test, "./data/test.json")
+
+    else:
+        
+        train_articles, dev_articles, test_articles = read_articles(args.input_dir)
+
+        labels = [
+            article["classification"]["subject"][0]["name"].lower()
+            for article in chain(train_articles, dev_articles, test_articles)
+            if article["classification"]["subject"]
+        ]
+
+        threshold = 50
+        labels_selected = [article for article, count in Counter(labels).most_common() if count > threshold]
+
+        filter_words = create_words_to_filter(labels_selected)
+
+        subject_counter = Counter()
+        for article in chain(train_articles, dev_articles, test_articles):
+            subjects = article["classification"]["subject"]
+            if subjects:
+                for subject in subjects:
+                    subject_counter[subject["name"]] += 1
+
+        
+
+    
+
         X_train, Y_train = extract_features_labels(train_articles, labels_selected, args.to_filter)
         X_dev, Y_dev = extract_features_labels(dev_articles, labels_selected, args.to_filter)
+        X_test, Y_test = extract_features_labels(test_articles, labels, args.to_filter)
 
         store_data(X_train, Y_train, "./data/train.json")
         store_data(X_dev, Y_dev, "./data/dev.json")
+        store_data(X_test, Y_test, "./data/test.json")
+
