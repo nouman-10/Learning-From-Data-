@@ -241,7 +241,7 @@ class BaselineModel:
     def read_data(self, only_test=False, test_path="test.json"):
         """Read in data from json files"""
         test_data = read_file(os.path.join(self.data_path, test_path))
-        print(test_path)
+
         self.X_test, self.Y_test = [article["body"] for article in test_data["features"]], test_data["labels"]
         if only_test:
             return
