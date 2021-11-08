@@ -1,8 +1,9 @@
+import argparse
+import os
+import pickle
+
 from model import BaselineModel, identity
 
-import argparse
-import pickle
-import os
 
 def create_arg_parser():
     parser = argparse.ArgumentParser()
@@ -27,17 +28,25 @@ def create_arg_parser():
         type=str,
         help="Read saved model from the path (default ./data/best_baseline_model.pkl)",
     )
+    parser.add_argument(
+        "-t", "--test_path", default="test.json", type=str, help="Test json file from (default test.json)",
+    )
     args = parser.parse_args()
     return args
 
+
 def load_model(path):
+    """Load model from the given path"""
     with open(path, "rb") as f:
-        return pickle.load(f)    
+        return pickle.load(f)
+
 
 def read_labels(path):
+    """Read labels from the given file"""
     with open(path, "r") as f:
-        return f.read().split('\n')
-        
+        return f.read().split("\n")
+
+
 if __name__ == "__main__":
     args = create_arg_parser()
 
@@ -53,8 +62,7 @@ if __name__ == "__main__":
     model.labels = read_labels(os.path.join(args.data_dir, "labels.txt"))
     best_model = load_model(args.saved_model_path)
     model.pipeline = best_model
-    model.read_data(only_test=True)
+    model.read_data(only_test=True, test_path=args.test_path)
     model.evaluate()
     model.print_results()
     model.save_results(os.path.join(args.output_path, "test_results.txt"))
-
