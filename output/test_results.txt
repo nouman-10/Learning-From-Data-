@@ -1,79 +1,13 @@
-Accuracy: 0.31990521327014215
-Precision: [0.5        0.5        0.2        0.5        0.875      0.57142857
- 0.22222222 0.35294118 0.         0.7        0.         0.54545455
- 0.         1.         0.         0.         0.66666667 0.5
- 0.14285714 1.         0.         0.         0.33333333 0.5
- 0.         0.83333333 0.25       0.66666667 0.71428571 0.325
- 0.         0.07692308 1.         0.         0.         0.57142857
- 0.70833333 0.6        0.         0.         0.58823529 0.
- 0.66666667 0.125      0.         0.         0.         0.625
- 0.62962963 0.         1.         0.66666667 0.         0.
- 0.         0.05555556 0.4        0.         0.         0.
- 0.         0.         0.         0.27272727 0.125      0.
- 0.66666667 0.         0.5        0.375      0.5        0.22222222
- 0.25       0.25       0.5        0.33333333 0.25       0.11111111
- 0.33333333 0.375      0.         0.         0.5        0.375
- 0.625      0.75       0.12       0.25       0.125      0.
- 0.28       0.         0.2        0.28125    0.         1.
- 0.         0.5        0.         0.4        0.375      0.75
- 0.         0.25       0.5        0.11111111 0.         0.15384615
- 0.71428571 0.         0.30769231 1.         0.3        0.65
- 0.2        0.         0.80645161 0.5        0.25       0.11538462
- 0.11111111 0.         0.         0.         0.         0.55555556
- 0.         0.5        0.4        0.09090909 0.26666667 0.16666667
- 0.         0.         0.66666667 0.33333333 0.         0.
- 0.14285714 0.         0.10526316 0.33333333 0.30188679 0.41666667]
-Recall: [0.33333333 0.17857143 0.2        0.33333333 0.58333333 0.4
- 0.33333333 0.33333333 0.         0.46666667 0.         0.46153846
- 0.         1.         0.         0.         0.4        1.
- 0.4        0.11111111 0.         0.         0.4        0.41666667
- 0.         0.625      0.33333333 0.5        0.625      0.11304348
- 0.         0.0625     0.47368421 0.         0.         0.66666667
- 0.70833333 1.         0.         0.         0.47619048 0.
- 0.66666667 0.25       0.         0.         0.         0.5
- 0.38636364 0.         1.         0.4        0.         0.
- 0.         0.25       0.25       0.         0.         0.
- 0.         0.         0.         0.5        0.33333333 0.
- 0.4        0.         0.5        0.5        0.83333333 1.
- 1.         0.5        0.5        0.5        0.4        0.09090909
- 0.16666667 0.47368421 0.         0.         0.92307692 0.375
- 0.55555556 0.375      0.27272727 0.14285714 0.04347826 0.
- 0.53846154 0.         0.125      0.75       0.         0.2
- 0.         0.5        0.         0.4        0.2        0.6
- 0.         0.07142857 0.75       1.         0.         0.57142857
- 0.35714286 0.         0.8        0.5        1.         0.92857143
- 0.23076923 0.         0.86206897 0.14285714 0.16666667 0.33333333
- 0.14285714 0.         0.         0.         0.         0.71428571
- 0.         0.5        0.6        0.16666667 0.23529412 0.66666667
- 0.         0.         1.         0.33333333 0.         0.
- 0.25       0.         0.5        0.2        0.8        0.41666667]
-F1: [0.4        0.26315789 0.2        0.4        0.7        0.47058824
- 0.26666667 0.34285714 0.         0.56       0.         0.5
- 0.         1.         0.         0.         0.5        0.66666667
- 0.21052632 0.2        0.         0.         0.36363636 0.45454545
- 0.         0.71428571 0.28571429 0.57142857 0.66666667 0.16774194
- 0.         0.06896552 0.64285714 0.         0.         0.61538462
- 0.70833333 0.75       0.         0.         0.52631579 0.
- 0.66666667 0.16666667 0.         0.         0.         0.55555556
- 0.47887324 0.         1.         0.5        0.         0.
- 0.         0.09090909 0.30769231 0.         0.         0.
- 0.         0.         0.         0.35294118 0.18181818 0.
- 0.5        0.         0.5        0.42857143 0.625      0.36363636
- 0.4        0.33333333 0.5        0.4        0.30769231 0.1
- 0.22222222 0.41860465 0.         0.         0.64864865 0.375
- 0.58823529 0.5        0.16666667 0.18181818 0.06451613 0.
- 0.36842105 0.         0.15384615 0.40909091 0.         0.33333333
- 0.         0.5        0.         0.4        0.26086957 0.66666667
- 0.         0.11111111 0.6        0.2        0.         0.24242424
- 0.47619048 0.         0.44444444 0.66666667 0.46153846 0.76470588
- 0.21428571 0.         0.83333333 0.22222222 0.2        0.17142857
- 0.125      0.         0.         0.         0.         0.625
- 0.         0.5        0.48       0.11764706 0.25       0.26666667
- 0.         0.         0.8        0.33333333 0.         0.
- 0.18181818 0.         0.17391304 0.25       0.43835616 0.41666667]
+Accuracy: 0.3183254344391785
+Precision by class: 
+climate change: 0.667 | greenhouse gases: 0.550 | agreements: 0.200 | editorials & opinions: 0.250 | reports, reviews & sections: 0.875 | emissions: 0.571 | cooking & entertaining: 0.222 | pollution & environmental impacts: 0.389 | christmas: 0.000 | holding companies: 0.700 | political parties: 0.000 | armed forces: 0.545 | religion: 0.000 | weather: 1.000 | talks & meetings: 0.000 | united nations: 0.000 | beaches: 0.667 | environment & natural resources: 0.400 | climatology: 0.077 | islands & reefs: 0.333 | air quality regulation: 0.000 | death notices & obituaries: 0.000 | negative personal news: 0.333 | government & public administration: 0.500 | heads of state & government: 0.000 | global warming: 0.778 | letters & comments: 0.250 | campaigns & elections: 0.500 | international relations: 0.833 | planets & asteroids: 0.310 | astronomy & space: 0.000 | book reviews: 0.077 | european union: 1.000 | artists & performers: 0.000 | film: 0.000 | legislative bodies: 0.500 | mammals: 0.680 | children: 0.600 | us presidential candidates 2012: 0.000 | marine mammals: 0.000 | government advisors & ministers: 0.600 | restaurant reviews: 0.000 | writers: 0.667 | us republican party: 0.143 | mountains: 0.000 | conferences & conventions: 0.000 | architecture: 0.571 | associations & organizations: 0.682 | terrorism: 0.000 | armies: 1.000 | animals: 0.667 | prices: 0.000 | politics: 0.000 | prime ministers: 0.000 | fishes: 0.000 | christians & christianity: 0.333 | space exploration: 0.000 | coastal areas: 0.000 | energy efficiency & conservation: 0.111 | executives: 0.000 | skiing: 0.000 | crime, law enforcement & corrections: 0.000 | securities & other investments: 0.333 | birds: 0.143 | treaties & agreements: 0.000 | olympics: 0.667 | theater: 0.000 | air forces: 0.500 | national parks: 0.375 | immigration: 0.500 | economy & economic indicators: 0.222 | death & dying: 0.250 | indigenous peoples: 0.250 | navies: 0.500 | oil & gas prices: 0.286 | elections: 0.300 | taxes & taxation: 0.143 | protests & demonstrations: 0.250 | music: 0.455 | meteorology: 0.000 | gardening: 0.000 | actors & actresses: 0.478 | consumers: 0.444 | business news: 0.625 | muslims & islam: 0.600 | forests & woodlands: 0.100 | international relations & national security: 0.333 | glaciers & icebergs: 0.125 | auctions: 0.000 | cities: 0.304 | cricket: 0.000 | science & technology: 0.200 | internet social networking: 0.257 | city life: 0.000 | investigations: 1.000 | war & conflict: 0.000 | calendars: 0.500 | international economic organizations: 0.000 | earth & atmospheric science: 0.400 | insects & arachnids: 0.500 | us federal government: 0.750 | engineering: 0.000 | drought: 0.250 | celebrities: 0.500 | thanksgiving: 0.111 | city government: 0.000 | sports & recreation: 0.167 | emissions credits: 0.714 | geology & geophysics: 0.000 | conservation: 0.333 | exhibitions: 1.000 | extreme temperatures: 0.300 | energy & environment: 0.650 | economic crisis: 0.235 | economic conditions: 0.000 | climate change regulation & policy: 0.833 | fires: 0.400 | peace process: 0.250 | nuclear weapons: 0.115 | electric vehicles: 0.167 | environmental treaties & agreements: 0.000 | emerging markets: 0.000 | military weapons: 0.000 | basketball: 0.000 | manufacturing output: 0.556 | novels & short stories: 0.000 | developing countries: 0.500 | economics: 0.400 | environmentalism: 0.154 | students & student life: 0.267 | smog: 0.154 | bombings: 0.000 | environmental & wildlife organizations: 0.000 | family: 0.667 | trends & events: 0.333 | lobbying: 0.000 | aircraft accidents: 0.000 | festivals: 0.143 | manufacturing facilities: 0.000 | awards & prizes: 0.095 | mining & extraction sector performance: 0.333 | lakes: 0.302 | energy & utility policy: 0.417 | 
+Recall by class: 
+climate change: 0.333 | greenhouse gases: 0.196 | agreements: 0.200 | editorials & opinions: 0.333 | reports, reviews & sections: 0.583 | emissions: 0.400 | cooking & entertaining: 0.333 | pollution & environmental impacts: 0.389 | christmas: 0.000 | holding companies: 0.467 | political parties: 0.000 | armed forces: 0.462 | religion: 0.000 | weather: 1.000 | talks & meetings: 0.000 | united nations: 0.000 | beaches: 0.400 | environment & natural resources: 1.000 | climatology: 0.200 | islands & reefs: 0.111 | air quality regulation: 0.000 | death notices & obituaries: 0.000 | negative personal news: 0.400 | government & public administration: 0.417 | heads of state & government: 0.000 | global warming: 0.583 | letters & comments: 0.333 | campaigns & elections: 0.500 | international relations: 0.625 | planets & asteroids: 0.113 | astronomy & space: 0.000 | book reviews: 0.062 | european union: 0.474 | artists & performers: 0.000 | film: 0.000 | legislative bodies: 0.667 | mammals: 0.708 | children: 1.000 | us presidential candidates 2012: 0.000 | marine mammals: 0.000 | government advisors & ministers: 0.429 | restaurant reviews: 0.000 | writers: 0.667 | us republican party: 0.250 | mountains: 0.000 | conferences & conventions: 0.000 | architecture: 0.400 | associations & organizations: 0.341 | terrorism: 0.000 | armies: 1.000 | animals: 0.400 | prices: 0.000 | politics: 0.000 | prime ministers: 0.000 | fishes: 0.000 | christians & christianity: 0.125 | space exploration: 0.000 | coastal areas: 0.000 | energy efficiency & conservation: 0.056 | executives: 0.000 | skiing: 0.000 | crime, law enforcement & corrections: 0.000 | securities & other investments: 0.500 | birds: 0.333 | treaties & agreements: 0.000 | olympics: 0.400 | theater: 0.000 | air forces: 0.500 | national parks: 0.500 | immigration: 0.833 | economy & economic indicators: 1.000 | death & dying: 1.000 | indigenous peoples: 0.500 | navies: 0.500 | oil & gas prices: 0.500 | elections: 0.300 | taxes & taxation: 0.091 | protests & demonstrations: 0.167 | music: 0.526 | meteorology: 0.000 | gardening: 0.000 | actors & actresses: 0.846 | consumers: 0.500 | business news: 0.556 | muslims & islam: 0.375 | forests & woodlands: 0.273 | international relations & national security: 0.143 | glaciers & icebergs: 0.043 | auctions: 0.000 | cities: 0.538 | cricket: 0.000 | science & technology: 0.125 | internet social networking: 0.750 | city life: 0.000 | investigations: 0.200 | war & conflict: 0.000 | calendars: 0.500 | international economic organizations: 0.000 | earth & atmospheric science: 0.400 | insects & arachnids: 0.200 | us federal government: 0.600 | engineering: 0.000 | drought: 0.071 | celebrities: 0.750 | thanksgiving: 1.000 | city government: 0.000 | sports & recreation: 0.571 | emissions credits: 0.357 | geology & geophysics: 0.000 | conservation: 0.800 | exhibitions: 0.500 | extreme temperatures: 1.000 | energy & environment: 0.929 | economic crisis: 0.308 | economic conditions: 0.000 | climate change regulation & policy: 0.862 | fires: 0.143 | peace process: 0.167 | nuclear weapons: 0.333 | electric vehicles: 0.286 | environmental treaties & agreements: 0.000 | emerging markets: 0.000 | military weapons: 0.000 | basketball: 0.000 | manufacturing output: 0.714 | novels & short stories: 0.000 | developing countries: 0.500 | economics: 0.600 | environmentalism: 0.333 | students & student life: 0.235 | smog: 0.667 | bombings: 0.000 | environmental & wildlife organizations: 0.000 | family: 1.000 | trends & events: 0.333 | lobbying: 0.000 | aircraft accidents: 0.000 | festivals: 0.250 | manufacturing facilities: 0.000 | awards & prizes: 0.500 | mining & extraction sector performance: 0.200 | lakes: 0.800 | energy & utility policy: 0.417 | 
+F-Score by class: 
+climate change: 0.444 | greenhouse gases: 0.289 | agreements: 0.200 | editorials & opinions: 0.286 | reports, reviews & sections: 0.700 | emissions: 0.471 | cooking & entertaining: 0.267 | pollution & environmental impacts: 0.389 | christmas: 0.000 | holding companies: 0.560 | political parties: 0.000 | armed forces: 0.500 | religion: 0.000 | weather: 1.000 | talks & meetings: 0.000 | united nations: 0.000 | beaches: 0.500 | environment & natural resources: 0.571 | climatology: 0.111 | islands & reefs: 0.167 | air quality regulation: 0.000 | death notices & obituaries: 0.000 | negative personal news: 0.364 | government & public administration: 0.455 | heads of state & government: 0.000 | global warming: 0.667 | letters & comments: 0.286 | campaigns & elections: 0.500 | international relations: 0.714 | planets & asteroids: 0.166 | astronomy & space: 0.000 | book reviews: 0.069 | european union: 0.643 | artists & performers: 0.000 | film: 0.000 | legislative bodies: 0.571 | mammals: 0.694 | children: 0.750 | us presidential candidates 2012: 0.000 | marine mammals: 0.000 | government advisors & ministers: 0.500 | restaurant reviews: 0.000 | writers: 0.667 | us republican party: 0.182 | mountains: 0.000 | conferences & conventions: 0.000 | architecture: 0.471 | associations & organizations: 0.455 | terrorism: 0.000 | armies: 1.000 | animals: 0.500 | prices: 0.000 | politics: 0.000 | prime ministers: 0.000 | fishes: 0.000 | christians & christianity: 0.182 | space exploration: 0.000 | coastal areas: 0.000 | energy efficiency & conservation: 0.074 | executives: 0.000 | skiing: 0.000 | crime, law enforcement & corrections: 0.000 | securities & other investments: 0.400 | birds: 0.200 | treaties & agreements: 0.000 | olympics: 0.500 | theater: 0.000 | air forces: 0.500 | national parks: 0.429 | immigration: 0.625 | economy & economic indicators: 0.364 | death & dying: 0.400 | indigenous peoples: 0.333 | navies: 0.500 | oil & gas prices: 0.364 | elections: 0.300 | taxes & taxation: 0.111 | protests & demonstrations: 0.200 | music: 0.488 | meteorology: 0.000 | gardening: 0.000 | actors & actresses: 0.611 | consumers: 0.471 | business news: 0.588 | muslims & islam: 0.462 | forests & woodlands: 0.146 | international relations & national security: 0.200 | glaciers & icebergs: 0.065 | auctions: 0.000 | cities: 0.389 | cricket: 0.000 | science & technology: 0.154 | internet social networking: 0.383 | city life: 0.000 | investigations: 0.333 | war & conflict: 0.000 | calendars: 0.500 | international economic organizations: 0.000 | earth & atmospheric science: 0.400 | insects & arachnids: 0.286 | us federal government: 0.667 | engineering: 0.000 | drought: 0.111 | celebrities: 0.600 | thanksgiving: 0.200 | city government: 0.000 | sports & recreation: 0.258 | emissions credits: 0.476 | geology & geophysics: 0.000 | conservation: 0.471 | exhibitions: 0.667 | extreme temperatures: 0.462 | energy & environment: 0.765 | economic crisis: 0.267 | economic conditions: 0.000 | climate change regulation & policy: 0.847 | fires: 0.211 | peace process: 0.200 | nuclear weapons: 0.171 | electric vehicles: 0.211 | environmental treaties & agreements: 0.000 | emerging markets: 0.000 | military weapons: 0.000 | basketball: 0.000 | manufacturing output: 0.625 | novels & short stories: 0.000 | developing countries: 0.500 | economics: 0.480 | environmentalism: 0.211 | students & student life: 0.250 | smog: 0.250 | bombings: 0.000 | environmental & wildlife organizations: 0.000 | family: 0.800 | trends & events: 0.333 | lobbying: 0.000 | aircraft accidents: 0.000 | festivals: 0.182 | manufacturing facilities: 0.000 | awards & prizes: 0.160 | mining & extraction sector performance: 0.250 | lakes: 0.438 | energy & utility policy: 0.417 | 
 Confusion Matrix: 
 [[ 2  0  0 ...  0  1  0]
- [ 0 10  0 ...  0  0  0]
+ [ 0 11  0 ...  0  0  0]
  [ 0  0  1 ...  0  0  0]
  ...
  [ 0  0  0 ...  1  0  0]
